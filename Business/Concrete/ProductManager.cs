@@ -2,6 +2,7 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Cache;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -26,7 +27,7 @@ namespace Business.Concrete
         }
 
         //[ValidationAspect(typeof(ProductValidator))]
-        [SecuredOperation("admin,product.add")]
+        //[SecuredOperation("admin,product.add")]
         public IResult Add(Product product)
         {
             IResult result = BusinessRules.Run(
@@ -41,6 +42,7 @@ namespace Business.Concrete
 
         }
 
+        [CacheAspect]
         public IDataResult<List<Product>> GetAll()
         {
             if (DateTime.Now.Hour == 22)
